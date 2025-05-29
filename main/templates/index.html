@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raspberry Control Panel</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="sfondo" id="background">
+
+      <!-- Gruppo di switch -->
+      <div class="RelayControl">
+        <div class="relay-header">Relay control
+          <div class="lightSlider">
+            <input type="range" id="lightSlider" name="light" min="0" max="10" value="0" />
+            <label for="volume">Light</label>
+          </div>
+        </div>
+        <div class="switches-group" id="switchesGroup"></div>
+      </div>
+
+
+
+
+
+      <!-- Console dei log (modificata) -->
+      <div class="LogContainer">
+        <div class="console-header">Console dei Log</div>
+        <div class="log-output" id="console"></div>
+      </div>
+
+
+
+
+      <!-- Gruppo di pulsanti controllo musica -->
+      <div class="Multimidia">
+        <div class="multimidia-header">Media
+
+          <div class="volumSlider">
+            <input type="range" id="volumSlider" name="volume" min="0" max="10" value="0" />
+            <label for="volume">Volume</label>
+          </div>
+
+        </div>
+        <!-- Menu selezione brano -->
+        <div id="hormenu">
+          <ul>
+            <li>
+              <select id="songSelector">
+                <option value="">Select an MP3 file</option>
+              </select>
+            </li>
+          </ul>
+        </div>
+
+
+        <div class="musicCommand-group" id="musicCommandGroup"></div>
+
+
+        <!-- Sezione upload -->
+        <div class="uploadSection">
+          <button id="uploadButton">Upload</button>
+          <input type="file" id="fileInput" accept=".mp3" multiple>
+        </div>
+      </div>
+    </div> <!-- Chiusura .sfondo -->
+  </div> <!-- Chiusura .container -->
+
+
+
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
