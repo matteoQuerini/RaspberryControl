@@ -1,158 +1,122 @@
-# Raspberry Pi Control Panel Web Application Documentation
+# Technical Report: Raspberry Control Panel for Escape Rooms
 
-## Project Overview
+## Introduction
 
-This project implements a web-based control panel for Raspberry Pi using Flask. The interface allows users to:
-
-- Control up to 20 relays via toggle switches  
-- Adjust lighting intensity with a slider  
-- Play audio files with media controls  
-- Upload and manage MP3 files  
-- View system logs in a console interface
-
----
+The **Raspberry Control Panel** is an advanced web interface designed to manage automation systems in complex environments like escape rooms. This platform centralizes control of physical devices (lights, relays) and digital media (audio files), providing an intuitive, responsive, and adaptable control panel for multisensory scenarios. The goal is to give operators a unified tool to orchestrate immersive experiences by combining hardware automation and media playback.
 
 ## System Architecture
 
-### Backend (Flask/Python)
+The project uses a three-layer tech stack:
 
-- **Framework:** Flask web application  
-- **Endpoint:** Single route at root URL (`/`) that renders the HTML template  
-- **Debug Mode:** Enabled for development purposes  
-- **Static Files:** Serves CSS and JavaScript from `/static` directory
+- **Backend**: Flask framework (Python) for HTTP routing and request handling.
+- **Frontend**:
+  - HTML5 for interface structure.
+  - CSS3 with responsive layouts (Flexbox/Grid) and dark theme with orange accents for optimal readability in low-light environments.
+  - Dynamic JavaScript for interactive logic.
+- **Hardware Integration**: Designed to interface with Raspberry Pi via GPIO, though control logic is browser-simulable.
 
-### Frontend (HTML/CSS/JavaScript)
+## Core Functionality
 
-- **HTML Structure:** Semantic layout with three main sections: Relay Control, Log Console, Media Control  
-- **CSS Styling:** Custom dark theme with orange accents  
-- **JavaScript:** Dynamic element creation and event handling
+### 1. Advanced Light Control
 
----
+- **Individual Switches**:  
+  20 dynamically generated relays, each featuring:
+  - ON/OFF toggle switch (visual feedback: red/off → green/on)
+  - Slider for fine-grained brightness adjustment (0–100%)
 
-## Key Components
+- **Room Assignment**:  
+  Dropdown menus to assign relays to specific rooms (e.g., "Room1", "Room3"), enabling logical grouping of physical devices.
 
-### 1. Relay Control Panel
+### 2. Integrated Media System
 
-- **Position:** Left side of interface (35% width)  
-- **Components:**  
-  - 20 dynamically generated toggle switches arranged in a grid  
-  - Light intensity slider (0–10 range)  
-- **Visual Design:**  
-  - Custom-styled toggle switches with orange active state  
-  - Dark background with orange section header  
-  - Responsive grid layout
+- **File Upload**:  
+  Support for multiple MP3 uploads (with format validation). Tracks are stored as blob URLs in the browser.
 
-### 2. Log Console
+- **Dynamic Playlist**:
+  - Track selection via dropdown menu
+  - Basic controls: Play, Stop, Next, Previous
+  - Circular playlist navigation (pressing "Next" after the last track restarts from the beginning)
 
-- **Position:** Bottom section (80% width)  
-- **Functionality:**  
-  - Displays timestamped system events  
-  - Auto-scrolls to latest entries  
-- **Design:**  
-  - Black background, white monospace text  
-  - Scrollable area with custom scrollbar  
-  - Orange section header
+- **Volume Management**:  
+  Dedicated slider for real-time volume adjustment (0–100%)
 
-### 3. Media Control Panel
+### 3. Log Console
 
-- **Position:** Right side of interface (40% width)  
-- **Components:**  
-  - Volume control slider (0–10 range)  
-  - Song selection dropdown  
-  - Media control buttons: Play, Stop, Next, Previous  
-  - File upload for MP3s  
-- **Features:**  
-  - MP3 upload with validation  
-  - Playlist management  
-  - Track navigation  
-- **Design:**  
-  - Music buttons with hover/active states  
-  - Orange upload button  
-  - Dark theme with orange accents
+- **Action Tracking**:  
+  All user interactions are timestamped and logged:
+  - Relay activation/deactivation
+  - Brightness adjustments
+  - Room assignments
+  - Media operations (playback, uploads, volume changes)
 
----
+- **Functional Design**:  
+  Scrollable text area with monospace font, optimized for continuous monitoring.
 
-## User Interactions
+## Interface Design
 
-### Relay Control
+The UI is organized into three key sections:
 
-- Toggling a switch logs:
-  - Relay identifier  
-  - New state (ON/OFF)  
-  - Timestamp
+- **Relay Control (Left 45%)**:
+  - Responsive grid (CSS Grid) of cards containing switches, sliders, and dropdowns
+  - Scrollable display (hidden scrollbar for aesthetics)
 
-### Media Playback
+- **Media Control (Right 40%)**:
+  - Oversized audio control buttons for touch-friendly use
+  - Volume slider positioned in the header
+  - Custom-styled upload section
 
-- **Controls:**  
-  - `Play`: Starts audio  
-  - `Stop`: Stops and resets  
-  - `Next/Previous`: Navigate playlist  
-  - `Volume`: Adjusts 0–100%
-- **File Management:**  
-  - Upload button triggers file selection  
-  - Validates MP3 files  
-  - Updates song selector dropdown
+- **Log Console (Bottom 25%)**:
+  - Strategic placement for immediate visibility during operations
 
-### Light Control
+### Aesthetic Choices
 
-- Slider adjusts lighting (0–100%)  
-- Changes logged with timestamps
+- "FX LED" font for industrial control-panel aesthetics
+- Dark theme (`#212121`) with orange accents (`#FF5900`) to reduce eye strain in dark environments
+- Hover/active effects on interactive elements for tactile feedback
 
----
+## Key Technologies
 
-## Design System
+- **Dynamic DOM Manipulation (JavaScript)**:  
+  Relay generation via template literals. Delegated event handling for efficiency.
 
-- **Color Scheme:**  
-  - Primary: `#ff5900` (orange)  
-  - Background: `#000000` (black)  
-  - Secondary: `#212121` (dark gray)  
-  - Controls: `#383838` (medium gray)  
+- **Native Audio Handling**:  
+  HTML5 `<audio>` element with programmatic controls (`play()`, `pause()`)
 
-- **Typography:**  
-  - `'FX LED'` monospace font
+- **Secure Uploads**:  
+  JavaScript File API for validation and blob URL conversion (no server upload)
 
-- **Layout Principles:**  
-  - Fixed positioning for control sections  
-  - Responsive relay grid  
-  - Consistent padding/spacing
+- **Adaptive Layout**:  
+  CSS media queries for screens ≥1200px and mobile devices
 
-- **Visual Feedback:**  
-  - Hover effects  
-  - Active button states  
-  - Live log updates
+## Escape Room Use Cases
 
----
+- **Environmental Control**:  
+  Turn lights on/off in specific rooms, adjust ambiance (e.g., 10% brightness for mystery effects)
 
-## Technical Implementation Notes
+- **Immersive Audio**:  
+  Contextual sound playback (e.g., thunder, creaking doors) synchronized with actions
 
-### Frontend Logic
+- **Real-Time Debugging**:  
+  Log console helps diagnose issues mid-session (e.g., "Relay12 activated at 21:30 in Crypt")
 
-- **Dynamic Element Creation:**  
-  - 20 relay switches via JS loop  
-  - Media buttons from command array  
+## Limitations & Future Development
 
-- **Audio Handling:**  
-  - Hidden `<audio>` element  
-  - Playlist management with index  
+- **Persistence**:  
+  Room assignments and relay states aren’t saved on refresh.  
+  _Solution_: Integrate `localStorage` or backend database.
 
-- **File Management:**  
-  - Stored via `URL.createObjectURL()`  
-  - Validates `.mp3`, `.wav`, `.ogg` extensions
+- **Security**:  
+  No authentication.  
+  _Priority_: Add login for multi-operator environments.
 
-### Backend Features
+- **Hardware Extensions**:  
+  Actual GPIO/Raspberry Pi integration via REST APIs or WebSockets.
 
-- Template rendering with Flask  
-- Static file serving  
-- Debug mode enabled
+- **Additional Features**:
+  - Programmable timers for lights/audio
+  - Audio track seek bar
+  - Preset light effects (fade, strobe)
 
----
+## Conclusions
 
-## Potential Improvements
-
-- Backend integration for actual relay control  
-- Persistent file storage  
-- User authentication  
-- Mobile responsiveness  
-- Real-time hardware status  
-- More media formats  
-- Save/load playlists
+The Raspberry Control Panel provides a comprehensive solution for creative home automation, particularly in escape rooms where coordination and atmosphere are critical. It combines granular hardware control, media management, and operational monitoring in a single intuitive interface. The modular structure and well-organized code facilitate extensions, making it a robust foundation for experiential IoT projects. Its functional aesthetics and user feedback focus demonstrate human-centered design tailored to operators’ real-world needs.
