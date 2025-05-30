@@ -1,0 +1,522 @@
+@import url('https://fonts.cdnfonts.com/css/fx-led');
+
+@media (max-width: 1200px) {
+  body {
+    min-width: 100%;
+    padding: 20px;
+  }
+
+  .sfondo {
+    min-width: 90%;
+    min-height: 700px;
+  }
+
+  .switches-group,
+  .console {
+    width: 30%;
+  }
+}
+
+/*--------------------------------------*/
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  font-family: 'FX LED', monospace;
+  min-width: 950px;
+  min-height: 1200px;
+  /* Crea le barre di scorrimento */
+  overflow-y: auto;
+}
+
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.sfondo {
+  width: 90vw;
+  height: 70vh;
+  max-width: 1700px;
+  max-height: 1500px;
+  min-width: 1200px;
+  min-height: 900px;
+  background-color: #212121;
+  border-radius: 15px;
+  margin: 5vh;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/*--------------------------------------*/
+
+.RelayControl {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: 45%;
+  height: 50%;
+
+  bottom: 40%;
+  left: 5%;
+
+  border-radius: 15px;
+}
+
+
+
+.relay-header {
+  color: #ff5900;
+  font-weight: bold;
+  font-family: 'FX LED', monospace;
+
+  height: 40px;
+
+  padding: 8px 15px;
+  font-size: 1.1em;
+  box-sizing: border-box;
+
+  background-color: rgb(48, 48, 48);
+}
+
+
+.light-control {
+
+}
+
+
+.light-control input[type="range"] {
+  width: 90%; 
+  height: 6px;
+  accent-color: #ff5900;
+}
+
+.light-control label {
+  font-size: 1em;
+  font-weight: bold;
+  color: #ff5900;
+  margin-top: 2px;
+}
+
+
+
+.switches-group {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-items: center;
+  align-items: center;
+  
+
+  width: 100%;
+  height: 90%;
+
+  gap: 10px;
+
+  min-width: 100%;
+  min-height: 90%;
+
+  border-radius: 0 0 15px 15px;
+  background-color: #000000;
+  color: #ffffff;
+
+  overflow: auto;
+
+  
+}
+
+.switch-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+
+  padding: 15px 0px;
+  border-radius: 15px;
+
+  margin-top: 5%;
+  gap: 8px; 
+
+  width: 200px;
+  height: 130px;
+
+  background: rgb(48, 48, 48);
+}
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+  min-width: 60px;
+  min-height: 34px;
+
+
+}
+
+
+.switch input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+
+.room-select {
+  width: 90%;
+  padding: 5px;
+  border-radius: 8px;
+  /*----------------------------------------------------------------------*/
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'FX LED', monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  transition: .4s;
+  border-radius: 34px;
+
+  background-color: #ff5900;
+}
+
+input:checked+.slider {
+  background-color: #109d01;
+}
+
+
+/* Pulsante centrale dello switch */
+.slider:before {
+  position: absolute;
+  content: "";
+
+  height: 26px;
+  width: 26px;
+
+  left: 4px;
+  bottom: 4px;
+
+  transition: .4s;
+  border-radius: 50%;
+
+  background-color: white;
+}
+
+
+/* Nasconde la scrollbar */
+.switches-group::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+/* Sposta il cerhio cntrale */
+input:checked+.slider:before {
+  transform: translateX(90%);
+}
+
+/*--------------------------------------*/
+.LogContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: auto;
+  height: 25%;
+
+  bottom: 10%;
+  right: 5%;
+  left: 5%;
+
+  border-radius: 15px;
+}
+
+.console-header {
+  color: #ff5900;
+  font-weight: bold;
+  font-family: 'FX LED', monospace;
+
+  padding: 8px 15px;
+  font-size: 1.1em;
+
+  background-color: rgb(48, 48, 48);
+}
+
+.log-output {
+  overflow-y: auto;
+  font-family: 'FX LED', monospace;
+  /*font-family: 'Consolas', monospace;*/
+
+  padding: 15px;
+  flex-grow: 1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+  background: #000000;
+  color: #fff;
+}
+
+.log-output::-webkit-scrollbar {
+  width: 8px;
+}
+
+/*--------------------------------------*/
+
+
+.Multimidia {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: 40%;
+  height: 50%;
+
+  bottom: 40%;
+  right: 5%;
+  border-radius: 15px;
+
+  background-color: #000000;
+}
+
+.multimidia-header {
+  color: #ff5900;
+  font-weight: bold;
+  font-family: 'FX LED', monospace;
+
+  height: 40px;
+
+  padding: 8px 15px;
+  font-size: 1.1em;
+  border-radius: 15px 15px 0 0;
+  box-sizing: border-box;
+
+  background-color: rgb(48, 48, 48);
+}
+
+
+.volumSlider {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+
+  right: 5%;
+  top: 2%;
+}
+
+input[type="range"] {
+  accent-color: #ff5900;
+}
+
+
+
+
+
+/*--------------------------------------*/
+
+.musicCommand-group {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 70%;
+  height: 30%;
+
+
+
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+
+
+  gap: 5px;
+  padding: 20px;
+
+
+  border-radius: 15px;
+  background-color: rgb(48, 48, 48);
+}
+
+.music-button {
+  display: flex;
+  border: none;
+  cursor: pointer;
+  background-color: #000000;
+  color: #fff;
+
+  border-radius: 10px;
+  padding: 30px;
+
+  width: 45%;
+  height: 10%;
+
+  margin: auto;
+
+  transition: background-color 0.3s ease;
+  font-family: 'FX LED', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.music-button:hover {
+  background-color: #202020;
+}
+
+.music-button:active {
+  background-color: #292929;
+  transition-duration: 0.1s;
+}
+
+/*--------------------------------------*/
+
+div#hormenu {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  bottom: 75%;
+
+  gap: 15px;
+  padding: 10px 20px;
+  border-radius: 15px;
+
+  width: 80%;
+  height: 10%;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-top: 1px solid black;
+  background: #383838;
+}
+
+div#hormenu ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  width: 100%;
+}
+
+#songSelector {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+
+  color: #ffffff;
+  font-family: 'FX LED', monospace;
+  font-size: 16px;
+
+  padding: 10px 20px;
+  border-radius: 10px;
+
+  width: 100%;
+  height: 10%;
+
+  transform: translateX(-50%);
+
+  margin-left: 50%;
+
+}
+
+/*--------------------------------------*/
+
+.uploadSection {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  bottom: 10%;
+  right: 35%;
+
+  padding: 20px;
+  border-radius: 10px;
+
+  width: 25%;
+  height: 5%;
+
+  background: #383838;
+
+}
+
+
+#uploadButton {
+  position: static;
+  cursor: pointer;
+  display: flex;
+  border: none;
+
+  font-weight: bold;
+  font-family: 'FX LED', monospace;
+  font-size: 16px;
+
+  border-radius: 8px;
+
+  width: 100%;
+  height: 150%;
+
+  padding: 10%;
+
+  /* Allineamento dellla scritta al centro */
+  justify-content: center;
+  align-items: center;
+
+  color: rgb(0, 0, 0);
+  background-color: #ff5900;
+}
+
+
+#uploadButton:hover {
+  background-color: #cf4800;
+}
+
+/* Raggruppamento stati active */
+#uploadButton:active {
+  background-color: #e85100;
+  transition-duration: 0.1s;
+}
+
+/*--------------------------------------*/
+
